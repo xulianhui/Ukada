@@ -1,0 +1,18 @@
+body {
+	font-family: "Source Code Pro", "DejaVu Sans Mono", "Consolas", "Courier New", monospace;
+	color: #FFFFFF;
+	background-color: #280926;
+}
+
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
+li {
+	display: inherit;
+}
+
+/*table {border: 1}*/
+thead {color:green}
+tbody {color:white;height:50px}
