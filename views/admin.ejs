@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CCNUACN Admin</title>
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="./stylesheets/mainstyle.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+<h1>admin</h1>
+<a href="/admin/logout">logout</a>
+
+<table border="1" class="table table-condensed table-hover">
+	<thead>
+		<tr>
+			<th>email</th>
+			<th>name</th>
+			<th>nick</th>
+			<th>studentID</th>
+			<th>college</th>
+			<th>phone</th>
+			<th>qq</th>
+			<th>option</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+<% users.forEach(function(user, index) { %>
+	<tr <% if (user.statu == 1) {%> class="warning"<%} else if (user.statu == 2) {%> class="success" <% } %> >
+		<td><%= user.email%></td>
+		<td><%= user.name%></td>
+		<td><%= user.nick%></td>
+		<td><%= user.studentID%></td>
+		<td><%= user.college%></td>
+		<td><%= user.phone%></td>
+		<td><%= user.qq%></td>
+		<td>
+			<% if (user.statu == 0) {%>
+				Not apply
+			<% } else if (user.statu == 1) {%>
+				<a href="/admin/accept/<%= user.id%>">accept</a>
+			<% } else {%>
+				<a href="/admin/revoke/<%= user.id%>">revoke</a>
+			<% }%>
+		</td>
+	</tr>
+<% }) %>
+
+	</tbody>
+</table>
+
+</body>
+</html>
