@@ -3,7 +3,7 @@
 CREATE database ukada CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 CREATE USER 'ukada'@'localhost' IDENTIFIED BY 'ukada';
-//GRANT privileges ON ukada.* TO 'ukada'@'localhost';
+--GRANT privileges ON ukada.* TO 'ukada'@'localhost';
 
 grant all privileges on ukada.* to ukada@localhost identified by 'ukada';
 create table users (
