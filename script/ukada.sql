@@ -3,7 +3,7 @@
 CREATE database ukada CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 CREATE USER 'ukada'@'localhost' IDENTIFIED BY 'ukada';
-GRANT privileges ON ukada.* TO ukada@localhost by 'ukada';
+--GRANT privileges ON ukada.* TO 'ukada'@'localhost';
 
 grant all privileges on ukada.* to ukada@localhost identified by 'ukada';
 create table users (
@@ -20,4 +20,5 @@ create table users (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-insert into users (email, password, statu, name) values ('xue@gmail.com', '123', 1, '徐莲辉')
+-- insert into users (email, password, statu, name) values ('xue@gmail.com', '123', 1, '徐莲辉')
+
