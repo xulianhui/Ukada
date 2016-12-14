@@ -71,7 +71,7 @@ router.post('/apply', checkLogin, function(req, res) {
 		_apply.phone == '' || _apply.phone.length > 11 ||
 		_apply.qq == '' || _apply.qq.length > 12) {
 
-		req.flash('message', 'Please enter the correct information');
+		req.flash('message', 'error, Please enter the correct information');
 		// res.render('message', {
 		// 	msg: 'error, please input all infomation.',
   //   		message: req.flash('message').toString()
@@ -121,44 +121,33 @@ router.post('/regist', checkLogout, function(req, res) {
 	// console.log(req.body.password);
 	// console.log(req.body.password_re);
 
-	user.getByEmail(req.body.email, function(err, ans) {
-		if (ans.toString() == '') {
-			if (req.body.password != req.body.password_re) {
-				req.flash('message', 
-					'Passwords do not match');
-
-				res.redirect('/regist');
-			} else {
-				var new_user= {
-					email: req.body.email,
-					password: md5(req.body.password),
-					statu: 0,
-					name: null,
-					nick: null,
-					studentID: null,
-					college: null,
-					phone: null,
-					qq: null,
-				}
-				var user_reg = new user(new_user);
-				user_reg.save(function(err, ans) {
-					if (err) {
-						res.render('message', {
-							msg: 'regist error',
-		    				message: req.flash('message').toString()
-						})
-					} 
-					console.log('user_reg session');
-					res.redirect('/');
-				});
-			}
-		} else {
-			req.flash('message', 
-				'User ' + req.body.email + ' already exists');
-
-			res.redirect('/regist');
+	if (req.body.password != req.body.password_re) {
+		res.redirect('/regist');
+	} else {
+		var new_user= {
+			email: req.body.email,
+			password: md5(req.body.password),
+			statu: 0,
+			name: null,
+			nick: null,
+			studentID: null,
+			college: null,
+			phone: null,
+			qq: null,
 		}
-	});
+		var user_reg = new user(new_user);
+		user_reg.save(function(err, ans) {
+			if (err) {
+				res.render('message', {
+					msg: 'regist error',
+    				message: req.flash('message').toString()
+				})
+			} 
+			console.log('user_reg session');
+			// req.session.user = user_reg;
+			res.redirect('/');
+		});
+	}
 });
 
 getFromRowDataPacket = function (res, callback) {
