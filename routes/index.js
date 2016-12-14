@@ -5,6 +5,7 @@
 var express = require('express');
 var router = express.Router();
 var user = require('../modules/user');
+var md5 = require('md5');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -19,7 +20,7 @@ router.post('/login', checkLogout, function(req, res) {
 		if (ans.toString() == '') {
 			req.flash('message', 'no such user');
 		}
-		else if (req.body.password != ans[0].password) {
+		else if (md5(req.body.password) != ans[0].password) {
 			req.flash('message', 'The password is incorrect');
 		} else {
 			getFromRowDataPacket(ans, function(_user) {
@@ -125,7 +126,7 @@ router.post('/regist', checkLogout, function(req, res) {
 	} else {
 		var new_user= {
 			email: req.body.email,
-			password: req.body.password,
+			password: md5(req.body.password),
 			statu: 0,
 			name: null,
 			nick: null,
