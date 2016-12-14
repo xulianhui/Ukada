@@ -62,10 +62,11 @@ router.post('/apply', checkLogin, function(req, res) {
 		qq: req.body.qq
 	}
 	console.log(_apply);
+	console.log(typeof _apply.studentID);
 	if (_apply.name == '' || _apply.name.length > 10 ||
 		_apply.nick == '' || _apply.nick.length > 10 ||
 		_apply.college == '' || _apply.college.length > 20 ||
-		_apply.studentID == '' || _apply.studentId.length > 10 || _apply.studentId.startsWith('2016') ||
+		_apply.studentID == '' || _apply.studentID.length > 10 || _apply.studentID.indexOf('2016') ||
 		_apply.phone == '' || _apply.phone.length > 11 ||
 		_apply.qq == '' || _apply.qq.length > 12) {
 
