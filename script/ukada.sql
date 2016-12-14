@@ -8,7 +8,7 @@ CREATE USER 'ukada'@'localhost' IDENTIFIED BY 'ukada';
 grant all privileges on ukada.* to ukada@localhost identified by 'ukada';
 create table users (
 	id int not null primary key auto_increment,
-	email varchar(20) not null,
+	email varchar(50) not null,
 	password varchar(50) not null,
 	statu int not null default '0',
 	name varchar(20),
