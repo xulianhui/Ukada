@@ -62,15 +62,14 @@ router.post('/apply', checkLogin, function(req, res) {
 		qq: req.body.qq
 	}
 	console.log(_apply);
-	if (_apply.name == '' ||
-		_apply.nick == '' ||
-		_apply.college == '' ||
-		_apply.studentID == '' ||
-		_apply.college == '' ||
-		_apply.phone == '' ||
-		_apply.qq == '') {
+	if (_apply.name == '' || _apply.name.length > 10 ||
+		_apply.nick == '' || _apply.nick.length > 10 ||
+		_apply.college == '' || _apply.college.length > 20 ||
+		_apply.studentID == '' || _apply.studentId.length > 10 || _apply.studentId.startsWith('2016') ||
+		_apply.phone == '' || _apply.phone.length > 11 ||
+		_apply.qq == '' || _apply.qq.length > 12) {
 
-		req.flash('message', 'error, please i	nput all infomation.');
+		req.flash('message', 'error, Please enter the correct information');
 		// res.render('message', {
 		// 	msg: 'error, please input all infomation.',
   //   		message: req.flash('message').toString()
