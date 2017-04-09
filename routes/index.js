@@ -55,19 +55,22 @@ router.post('/apply', checkLogin, function(req, res) {
 	var _user = req.session.user;
 
 	var _apply = {
-		name: req.body.name,
-		nick: req.body.nick,
-		studentID: req.body.studentID,
-		college: req.body.college,
+    nick: req.body.nick,
+    teamer1: req.body.teamer1,
+    teamer2: req.body.teamer2,
+		teamer3: req.body.teamer3,
+		school: req.body.school,
 		phone: req.body.tel,
 		qq: req.body.qq
 	}
 	console.log(_apply);
 	console.log(typeof _apply.studentID);
-	if (_apply.name == '' || _apply.name.length > 10 ||
-		_apply.nick == '' || _apply.nick.length > 10 ||
-		_apply.college == '' || _apply.college.length > 20 ||
-		_apply.studentID == '' || _apply.studentID.length > 10 || _apply.studentID.indexOf('2016') ||
+	if (_apply.nick == '' || _apply.nick.length > 10 ||
+    _apply.teamer1 == '' || _apply.teamer1.length > 10 ||
+    _apply.teamer2 == '' || _apply.teamer2.length > 10 ||
+		_apply.teamer3 == '' || _apply.teamer3.length > 10 ||
+		_apply.school == '' || _apply.school.length > 20 ||
+		// _apply.studentID == '' || _apply.studentID.length > 10 || _apply.studentID.indexOf('2016') ||
 		_apply.phone == '' || _apply.phone.length > 11 ||
 		_apply.qq == '' || _apply.qq.length > 12) {
 
@@ -124,7 +127,7 @@ router.post('/regist', checkLogout, function(req, res) {
 	user.getByEmail(req.body.email, function(err, ans) {
 		if (ans.toString() == '') {
 			if (req.body.password != req.body.password_re) {
-				req.flash('message', 
+				req.flash('message',
 					'Passwords do not match');
 
 				res.redirect('/regist');
@@ -133,27 +136,32 @@ router.post('/regist', checkLogout, function(req, res) {
 					email: req.body.email,
 					password: md5(req.body.password),
 					statu: 0,
-					name: null,
 					nick: null,
-					studentID: null,
-					college: null,
+          teamer1: null,
+          teamer2: null,
+					teamer3: null,
+					school: null,
 					phone: null,
 					qq: null,
 				}
 				var user_reg = new user(new_user);
 				user_reg.save(function(err, ans) {
 					if (err) {
-						res.render('message', {
-							msg: 'regist error',
-		    				message: req.flash('message').toString()
-						})
-					} 
-					console.log('user_reg session');
-					res.redirect('/');
+            console.log(err);
+						// res.render('message', {
+						// 	msg: 'regist error',
+		    		// 	message: req.flash('message').toString()
+						// })
+
+            res.redirect('/regist');
+					} else {
+            console.log('user_reg session');
+            res.redirect('/');
+          }
 				});
 			}
 		} else {
-			req.flash('message', 
+			req.flash('message',
 				'User ' + req.body.email + ' already exists');
 
 			res.redirect('/regist');
@@ -167,10 +175,11 @@ getFromRowDataPacket = function (res, callback) {
 		email: res[0].email,
 		password: res[0].password,
 		statu: res[0].statu,
-		name: res[0].name,
-		nick: res[0].nick,
-		studentID: res[0].studentID,
-		college: res[0].college,
+    nick: res[0].nick,
+    teamer1: res[0].teamer1,
+    teamer2: res[0].teamer2,
+		teamer3: res[0].teamer3,
+		school: res[0].school,
 		phone: res[0].phone,
 		qq: res[0].qq
 	});

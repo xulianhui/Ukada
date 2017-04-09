@@ -6,10 +6,11 @@ var user = function (_user) {
 	this.email = _user.email;
 	this.password = _user.password;
 	this.statu = _user.statu;
-	this.name = _user.name;
 	this.nick = _user.nick;
-	this.studentID = _user.studentID;
-	this.college = _user.college;
+	this.teamer1 = _user.teamer1;
+	this.teamer2 = _user.teamer2;
+	this.teamer3 = _user.teamer3;
+	this.school = _user.college;
 	this.phone = _user.phone;
 	this.qq = _user.qq;
 };
@@ -35,14 +36,15 @@ var getRes = function(querystr, callback) {
 }
 
 user.prototype.save = function (callback) {
-	var qustr = sqlstring.format('INSERT INTO users (email,password ,statu ,name ,nick ,studentID ,college ,phone ,qq ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+	var qustr = sqlstring.format('INSERT INTO users (email, password, statu, nick, teamer1, teamer2, teamer3, school, phone, qq ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
 								this.email,
 								this.password,
 								this.statu,
-								this.name,
 								this.nick,
-								this.studentID,
-								this.college,
+								this.teamer1,
+								this.teamer2,
+								this.teamer3,
+								this.school,
 								this.phone,
 								this.qq ]);
 
@@ -65,14 +67,15 @@ user.getById = function(id, callback) {
 }
 
 user.apply = function(_id, _apply, callback) {
-	var qustr = sqlstring.format('update users set statu = 1, name = ?, nick = ?, studentID = ?, college = ?, phone = ?, qq = ? where id = ?', [
-								_apply.name,
+	var qustr = sqlstring.format('update users set statu = 1, nick = ?, teamer1 = ?, teamer2 = ?, teamer3 = ?, school = ?, phone = ?, qq = ? where id = ?', [
 								_apply.nick,
-								_apply.studentID,
-								_apply.college,
+								_apply.teamer1,
+								_apply.teamer2,
+								_apply.teamer3,
+								_apply.school,
 								_apply.phone,
 								_apply.qq,
-								_id ]);
+								_id]);
 	console.log(qustr);
 	getRes(qustr, callback);
 }
