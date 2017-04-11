@@ -10,7 +10,7 @@ var user = function (_user) {
 	this.teamer1 = _user.teamer1;
 	this.teamer2 = _user.teamer2;
 	this.teamer3 = _user.teamer3;
-	this.school = _user.college;
+	this.school = _user.school;
 	this.phone = _user.phone;
 	this.qq = _user.qq;
 };
@@ -79,7 +79,11 @@ user.apply = function(_id, _apply, callback) {
 	console.log(qustr);
 	getRes(qustr, callback);
 }
-
+user.reapply = function(_id, callback) {
+	var qustr = sqlstring.format('UPDATE users SET statu = 0 WHERE id = ?', [_id]);
+	console.log(qustr);
+	getRes(qustr, callback);
+}
 user.accept = function(_id, callback) {
 	var qustr = sqlstring.format('UPDATE users SET statu = 2 WHERE id = ?', [_id]);
 	console.log(qustr);

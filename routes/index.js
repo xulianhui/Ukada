@@ -24,6 +24,7 @@ router.post('/login', checkLogout, function(req, res) {
 			req.flash('message', 'The password is incorrect');
 		} else {
 			getFromRowDataPacket(ans, function(_user) {
+        console.log(ans[0].school);
 				req.session.user = _user;
 				console.log('req.session.user');
 				console.log(req.session.user);
@@ -42,12 +43,44 @@ router.get('/logout', checkLogin, function(req, res) {
 });
 
 router.get('/apply', checkLogin, function(req, res) {
-  res.render('apply', {
-    user: req.session.user,
-    message: req.flash('message').toString()
+  user.getById(req.session.user.id, function(err, ans) {
+    if (err) {
+      console.log(err);
+    } else {
+      getFromRowDataPacket(ans, function(_user) {
+        console.log('_user');
+        console.log(_user);
+        req.session.user = _user;
+        res.render('apply', {
+          user: req.session.user,
+          message: req.flash('message').toString()
+        });
+      });
+    }
   });
 });
 
+router.get('/reapply', checkLogin, function(req, res) {
+  user.reapply(req.session.user.id, function(err, ans) {
+    if (err) {
+      console.log(err);
+      res.redirect('/');
+    } else {
+      user.getById(req.session.user.id, function(err, ans) {
+        if (err) {
+          console.log(err);
+        } else {
+          getFromRowDataPacket(ans, function(_user) {
+            console.log('_user');
+            console.log(_user);
+            req.session.user = _user;
+          });
+        }
+        res.redirect('/apply');
+      });
+    }
+  });
+})
 
 router.post('/apply', checkLogin, function(req, res) {
 	console.log('apply');
@@ -64,7 +97,6 @@ router.post('/apply', checkLogin, function(req, res) {
 		qq: req.body.qq
 	}
 	console.log(_apply);
-	console.log(typeof _apply.studentID);
 	if (_apply.nick == '' || _apply.nick.length > 10 ||
     _apply.teamer1 == '' || _apply.teamer1.length > 10 ||
     _apply.teamer2 == '' || _apply.teamer2.length > 10 ||
@@ -99,6 +131,8 @@ router.post('/apply', checkLogin, function(req, res) {
 						console.log(err);
 					} else {
 						getFromRowDataPacket(ans, function(_user) {
+              console.log('_user');
+              console.log(_user);
 							req.session.user = _user;
 						});
 					}
