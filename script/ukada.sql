@@ -11,10 +11,11 @@ create table users (
 	email varchar(50) not null,
 	password varchar(50) not null,
 	statu int not null default '0',
-	name varchar(20),
-	nick varchar(10),
-	studentID varchar(10),
-	college varchar(40),
+	nick varchar(50),
+    teamer1 varchar(50),
+    teamer2 varchar(50),
+    teamer3 varchar(50),
+	school varchar(40),
 	phone varchar(11),
 	qq varchar(12)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
