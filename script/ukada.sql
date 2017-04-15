@@ -1,11 +1,11 @@
-
-
 CREATE database ukada CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
 
 CREATE USER 'ukada'@'localhost' IDENTIFIED BY 'ukada';
 --GRANT privileges ON ukada.* TO 'ukada'@'localhost';
 
 grant all privileges on ukada.* to ukada@localhost identified by 'ukada';
+
+use ukada;
 create table users (
 	id int not null primary key auto_increment,
 	email varchar(50) not null,
